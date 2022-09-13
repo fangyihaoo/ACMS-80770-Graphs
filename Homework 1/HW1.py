@@ -22,27 +22,31 @@ nodes = G.nodes()
 
 layout = nx.spring_layout(G, seed=seed)
 
-# -- compute jaccard's similarity
-"""
-    This example is using NetwrokX's native implementation to compute similarities.
-    Write a code to compute Jaccard's similarity and replace with this function.
-"""
-pred = nx.jaccard_coefficient(G)
-
 # -- keep a copy of edges in the graph
 old_edges = copy.deepcopy(G.edges())
 
-# -- add new edges representing similarities.
-"""
-    This is an example to show how to add edges to a graph. You may need to modify the 
-    loop and don’t need to use the loop as it is.
-"""
-new_edges, metric = [], []
-for u, v, p in pred:
-    G.add_edge(u, v)
-    print(f"({u}, {v}) -> {p:.8f}")
-    new_edges.append((u, v))
-    metric.append(p)
+# -- compute jaccard's similarity
+def jaccard(u,v,G):
+  """
+    Compute the Jaccard coefficient of the node pair (n.v) in the graph G.
+  """
+  union_size = len(set(G[u])|set(G[v]))
+  if union_size==0:
+    return 0
+  inter_size = len(set(G[u])& set(G[v]))
+  return inter_size/union_size
+n = len(G.nodes())
+#jaccard matrix S
+S = np.zeros((n,n))
+new_edges, metrics = [], []
+for i,u in enumerate(G.nodes()):
+  for j,v in enumerate(G.nodes()):
+    S[i,j] = jaccard(u,v,G)
+    if u == 'Ginori':
+      new_edges.append((u,v))
+      metrics.append(S[i,j])
+print('The Jaccard similarity matrix S is')
+print(S)
 
 # -- plot Florentine Families graph
 nx.draw_networkx_nodes(G, nodelist=nodes, label=nodes, pos=layout, node_size=600)
@@ -53,7 +57,8 @@ nx.draw_networkx_edges(G, edgelist=old_edges, pos=layout, edge_color='gray', wid
     This example is randomly plotting similarities between 8 pairs of nodes in the graph. 
     Identify the ”Ginori”
 """
-ne = nx.draw_networkx_edges(G, edgelist=new_edges[:8], pos=layout, edge_color=np.asarray(metric[:8]), width=4, alpha=0.7)
+ne = nx.draw_networkx_edges(G, edgelist=new_edges, pos=layout, edge_color=np.asarray(metrics), width=4, alpha=0.7)
 plt.colorbar(ne)
 plt.axis('off')
 plt.show()
+
