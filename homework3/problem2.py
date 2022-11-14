@@ -161,7 +161,6 @@ for model in [MyModel1(A),MyModel2(A),MyModel3(A)]:
   for j in range(200):
     J = Jacob[i,:,j:] #100*200*200*200
     inf_score.append(J.sum())
-    G = nx.barabasi_albert_graph(n_V, 2, seed=seed)
   # -- plot influence scores
   plt.figure()
   k +=2
