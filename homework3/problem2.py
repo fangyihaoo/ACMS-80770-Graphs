@@ -57,7 +57,7 @@ class MyModel1(nn.Module):
 
     def forward(self, h0):
         x = self.conv(self.A,h0)
-        #x = x.relu()
+        x = x.relu()
 
         return x
 
@@ -78,11 +78,11 @@ class MyModel2(nn.Module):
 
     def forward(self, h0):
         x = self.conv1(self.A,h0)
-        #x = x.relu()
+        x = x.relu()
         x = self.conv2(self.A,x)
-        #x = x.relu()
+        x = x.relu()
         x = self.conv3(self.A,x)
-        #x = x.relu()
+        x = x.relu()
 
         return x
 
@@ -104,15 +104,15 @@ class MyModel3(nn.Module):
 
     def forward(self, h0):
         x = self.conv1(self.A,h0)
-        #x = x.relu()
+        x = x.relu()
         x = self.conv2(self.A,x)
-        #x = x.relu()
+        x = x.relu()
         x = self.conv3(self.A,x)
-        #x = x.relu()
+        x = x.relu()
         x = self.conv4(self.A,x)
-        #x = x.relu()
+        x = x.relu()
         x = self.conv5(self.A,x)
-        #x = x.relu()
+        x = x.relu()
 
         return x
 
