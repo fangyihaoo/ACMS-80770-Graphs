@@ -2,10 +2,10 @@ import sys
 sys.path.append('./Project')
 import pandas as pd 
 import numpy as np
-# import the graph models
-from inductiveGRL.graphconstruction import GraphConstruction
-from inductiveGRL.hinsage import HinSAGE_Representation_Learner
-from inductiveGRL.evaluation import Evaluation
+# import the graph models from utils folder
+from utils.graphconstruction import GraphConstruction
+from utils.hinsage import HinSAGE_Representation_Learner
+from utils.evaluation import Evaluation
 from xgboost import XGBClassifier
 
 # Global parameters:
